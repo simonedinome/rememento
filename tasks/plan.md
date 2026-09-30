@@ -45,7 +45,7 @@ Non sono task dell'agente: vanno completati prima del Task 1.
 
 ### Phase 3: Dati
 - [x] Task 6: Migrazione D1 iniziale
-- [ ] Task 7: Convenzioni e helper R2
+- [x] Task 7: Convenzioni e helper R2
 
 ### Checkpoint C: modulo core completo
 - [ ] Tutti i Success Criteria di `SPEC-core.md` soddisfatti

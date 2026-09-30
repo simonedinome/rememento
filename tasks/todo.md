@@ -128,13 +128,13 @@ Leggi `CLAUDE.md` prima di iniziare. Un task alla volta, in ordine. Fermati a og
 **Description:** Implementare in `src/core/r2.ts` le funzioni che costruiscono le chiavi (`audioKey`, `rawKey`, `extractionKey`) e gli helper `putJson` e `getJson`.
 
 **Acceptance criteria:**
-- [ ] Le chiavi seguono esattamente le convenzioni di `SPEC-core.md`
-- [ ] `getJson` su una chiave inesistente restituisce `null` invece di lanciare un errore
-- [ ] Un round-trip put/get restituisce l'oggetto identico
+- [x] Le chiavi seguono esattamente le convenzioni di `SPEC-core.md`
+- [x] `getJson` su una chiave inesistente restituisce `null` invece di lanciare un errore
+- [x] Un round-trip put/get restituisce l'oggetto identico
 
 **Verification:**
-- [ ] Test nel pool Workers con R2 simulato
-- [ ] `npm run check:task` passa
+- [x] Test nel pool Workers con R2 simulato
+- [x] `npm run check:task` passa
 
 **Dependencies:** Task 5
 
