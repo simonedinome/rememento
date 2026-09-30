@@ -68,13 +68,13 @@ Leggi `CLAUDE.md` prima di iniziare. Un task alla volta, in ordine. Fermati a og
 **Description:** Implementare `src/core/config.ts`, che carica e valida con Zod i secret dell'ambiente, `config/tags.json` e `config/providers.json`. Creare `tags.json` con lo schema definitivo e 3 tag segnaposto.
 
 **Acceptance criteria:**
-- [ ] Un secret mancante genera un errore con il nome esatto del secret (es. `Missing secret: NOTION_TOKEN`)
-- [ ] Un tag o un provider non valido viene rifiutato all'avvio
-- [ ] `providers.json` definisce il provider predefinito e quello di fallback, che devono essere diversi
+- [x] Un secret mancante genera un errore con il nome esatto del secret (es. `Missing secret: NOTION_TOKEN`)
+- [x] Un tag o un provider non valido viene rifiutato all'avvio
+- [x] `providers.json` definisce il provider predefinito e quello di fallback, che devono essere diversi
 
 **Verification:**
-- [ ] Test unitari per il caso valido, il secret mancante, il tag sconosciuto e il fallback uguale al predefinito
-- [ ] `npm run check:task` passa
+- [x] Test unitari per il caso valido, il secret mancante, il tag sconosciuto e il fallback uguale al predefinito
+- [x] `npm run check:task` passa
 
 **Dependencies:** Task 3
 

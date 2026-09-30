@@ -1,0 +1,22 @@
+{
+	"tags": [
+		{
+			"id": "progetto_esempio",
+			"label": "Progetto di esempio",
+			"category": "project",
+			"description": "Segnaposto: da sostituire con la lista reale prima della spec di processing"
+		},
+		{
+			"id": "persona_esempio",
+			"label": "Persona di esempio",
+			"category": "person",
+			"description": "Segnaposto: da sostituire con la lista reale prima della spec di processing"
+		},
+		{
+			"id": "tema_esempio",
+			"label": "Tema di esempio",
+			"category": "topic",
+			"description": "Segnaposto: da sostituire con la lista reale prima della spec di processing"
+		}
+	]
+}
