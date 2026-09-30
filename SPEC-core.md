@@ -60,6 +60,13 @@ raw/{meetingId}/{provider}.json        → risposta grezza del provider
 extraction/{meetingId}.json            → output JSON dell'LLM
 ```
 
+## Cancellazione di una riunione
+Le chiavi esterne non hanno azioni `ON DELETE` (`docs/migrations.md`), quindi una riunione si cancella solo con un'unica funzione di `core`, da scrivere la prima volta che serve. Nessun altro modulo cancella direttamente righe di `meetings` o dei suoi figli.
+
+1. In un solo `batch` D1 (atomico), nell'ordine: `item_tags` e `item_segments` degli elementi della riunione, `item_segments` che citano i suoi segmenti, `items`, `chunks`, `segments`, `speakers`, `notes.meeting_id` impostato a `NULL`, infine la riga di `meetings`.
+2. I vettori in Vectorize con gli id di elementi e chunk eliminati, e gli oggetti R2 della riunione (`audio/`, `raw/`, `extraction/`).
+3. Da decidere quando la si scrive: se gli elementi che hanno anche `note_id` vanno eliminati o solo scollegati dalla riunione, e in che ordine eseguire D1, Vectorize e R2, che non sono transazionali tra loro.
+
 ## Tipi condivisi (contratto verso gli altri moduli)
 ```ts
 export type Segment = {

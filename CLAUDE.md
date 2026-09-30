@@ -14,3 +14,4 @@
 5. Ogni esecuzione `--remote` (migrazione o `d1 execute`) che crea o modifica vincoli (`PRIMARY KEY`, `UNIQUE`, `NOT NULL`, `CHECK`) o chiavi esterne richiede l'approvazione esplicita di Simone prima di essere eseguita. Mostra l'SQL e aspetta la risposta: l'approvazione vale solo per quell'SQL.
 6. Prima di dichiarare un task completato: `npm run check:task` deve passare.
 7. Se un controllo fallisce, correggi il codice. Non modificare la soglia, non aggiungere soppressioni, non saltare il test.
+8. Una riunione si cancella solo con la funzione di `core` descritta in `SPEC-core.md` (Cancellazione di una riunione). Se non esiste ancora, va aggiunta a `core` prima di usarla: nessun modulo cancella da solo righe di `meetings` o dei suoi figli.
