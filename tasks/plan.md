@@ -48,8 +48,8 @@ Non sono task dell'agente: vanno completati prima del Task 1.
 - [x] Task 7: Convenzioni e helper R2
 
 ### Checkpoint C: modulo core completo
-- [ ] Tutti i Success Criteria di `SPEC-core.md` soddisfatti
-- [ ] Copertura del progetto misurata e registrata in `CONSTRAINTS.md`
+- [x] Tutti i Success Criteria di `SPEC-core.md` soddisfatti
+- [x] Copertura del progetto misurata e registrata in `CONSTRAINTS.md`
 - [ ] Revisione con Simone prima di scrivere `SPEC-transcription.md`
 
 ## Risks and Mitigations

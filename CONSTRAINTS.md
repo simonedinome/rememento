@@ -36,7 +36,7 @@ Queste tre scelte non sono state discusse esplicitamente; sono i default della s
 
 | Metrica | Oggi | Direzione |
 |---|---|---|
-| Copertura del progetto | da misurare alla fine del modulo `core` | non deve scendere |
+| Copertura del progetto | Fine modulo `core` (2026-09-30, istanbul su `src/`): righe 100% (60/60), branch 100% (23/23), funzioni 100% (18/18) | non deve scendere |
 
 ## Exceptions
 

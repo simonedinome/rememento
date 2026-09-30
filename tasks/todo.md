@@ -143,6 +143,6 @@ Leggi `CLAUDE.md` prima di iniziare. Un task alla volta, in ordine. Fermati a og
 **Estimated scope:** S (circa 20 minuti)
 
 ## Checkpoint C: modulo core completo
-- [ ] Tutti i Success Criteria di `SPEC-core.md` soddisfatti
-- [ ] Copertura del progetto registrata in `CONSTRAINTS.md`
+- [x] Tutti i Success Criteria di `SPEC-core.md` soddisfatti
+- [x] Copertura del progetto registrata in `CONSTRAINTS.md`
 - [ ] Revisione con Simone prima di `SPEC-transcription.md`
