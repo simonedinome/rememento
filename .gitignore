@@ -1,0 +1,29 @@
+# Dependencies and build output
+node_modules/
+dist/
+*.tsbuildinfo
+
+# Wrangler
+.wrangler/
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+.env
+.env.*
+!.env.example
+
+# Test output
+coverage/
+
+# Audio: never in the repo (CONSTRAINTS.md floor rule 4)
+*.m4a
+*.mp3
+*.wav
+*.ogg
+*.oga
+*.opus
+*.flac
+*.aac
+
+# Logs
+*.log

@@ -9,7 +9,7 @@ Utente: solo Simone (uso personale). Consumatori: tutti gli altri moduli della c
 1. Cloudflare Workers, TypeScript strict.
 2. D1 (SQLite) per i metadati, R2 per audio e JSON grezzi, Vectorize per gli embedding (l'indice viene creato qui, usato da processing e retrieval).
 3. Zod per validare la configurazione.
-4. Vitest + `@cloudflare/vitest-pool-workers`. Biome per lint e format.
+4. Vitest + `@cloudflare/vitest-plugin`. Biome per lint e format.
 5. Versioni: ultima stabile al momento dello scaffold, fissate in `package.json` (nessun `^`).
 
 ## Commands
@@ -26,7 +26,7 @@ Deploy:      npx wrangler deploy
 
 ## Project Structure
 ```
-src/core/config.ts      → caricamento + validazione Zod di env e config/*.json
+src/core/config.ts      → validazione Zod di config/*.json + requireSecrets (controllo dei secret dichiarati da ogni modulo)
 src/core/types.ts       → tipi di dominio condivisi
 src/core/r2.ts          → convenzioni chiavi R2 + helper put/get JSON
 src/core/ids.ts         → generazione UUID
@@ -42,7 +42,7 @@ wrangler.toml           → binding: DB (D1), BUCKET (R2), VECTORS (Vectorize)
 
 | Tabella | Campi principali | Note |
 |---|---|---|
-| meetings | id, title, recorded_at, duration_s, language, audio_key, provider, model, status, notion_page_id, created_at | status: uploaded, transcribing, processing, done, failed |
+| meetings | id, title, recorded_at, recorded_at_source, duration_s, language, audio_key, provider, model, status, notion_page_id, created_at | status: uploaded, transcribing, processing, done, failed; recorded_at_source (NOT NULL): metadata, filename, mtime, manual |
 | speakers | id, meeting_id, label, name, verified, confidence | label = etichetta del provider (A, 0...); verified 0/1 |
 | segments | id, meeting_id, speaker_id, seq, start_ms, end_ms, text | ordine per seq |
 | items | id, meeting_id, note_id, type, text, created_at | type: decision, action_item, insight, summary; meeting_id e note_id nullable, almeno uno valorizzato |
@@ -59,6 +59,13 @@ audio/{meetingId}.{ext}
 raw/{meetingId}/{provider}.json        → risposta grezza del provider
 extraction/{meetingId}.json            → output JSON dell'LLM
 ```
+
+## Cancellazione di una riunione
+Le chiavi esterne non hanno azioni `ON DELETE` (`docs/migrations.md`), quindi una riunione si cancella solo con un'unica funzione di `core`, da scrivere la prima volta che serve. Nessun altro modulo cancella direttamente righe di `meetings` o dei suoi figli.
+
+1. In un solo `batch` D1 (atomico), nell'ordine: `item_tags` e `item_segments` degli elementi della riunione, `item_segments` che citano i suoi segmenti, `items`, `chunks`, `segments`, `speakers`, `notes.meeting_id` impostato a `NULL`, infine la riga di `meetings`.
+2. I vettori in Vectorize con gli id di elementi e chunk eliminati, e gli oggetti R2 della riunione (`audio/`, `raw/`, `extraction/`).
+3. Da decidere quando la si scrive: se gli elementi che hanno anche `note_id` vanno eliminati o solo scollegati dalla riunione, e in che ordine eseguire D1, Vectorize e R2, che non sono transazionali tra loro.
 
 ## Tipi condivisi (contratto verso gli altri moduli)
 ```ts
@@ -103,7 +110,7 @@ Funzioni piccole e pure dove possibile, niente classi senza stato, nomi in ingle
 ## Success Criteria
 1. `npm test` e `npx tsc --noEmit` passano nell'ambiente Claude Code cloud.
 2. `0001_init.sql` crea tutte le tabelle sopra, sia in locale sia su remoto.
-3. La config rifiuta all'avvio un tag non presente in `config/tags.json` e un secret mancante, con messaggio esplicito.
+3. La config rifiuta all'avvio un tag o un provider non valido, con messaggio esplicito. `core` non elenca i secret: ogni modulo dichiara i propri e li verifica con `requireSecrets` quando li usa, che rifiuta un secret mancante con il suo nome.
 4. L'indice Vectorize esiste con 1536 dimensioni.
 5. Gli altri moduli possono importare `TranscriptionResult` e gli helper R2 senza toccare `core`.
 
