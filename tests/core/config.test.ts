@@ -1,13 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { assertKnownTags, loadConfig } from "../../src/core/config";
-
-const env = {
-	TELEGRAM_BOT_TOKEN: "telegram-test",
-	NOTION_TOKEN: "notion-test",
-	OPENAI_API_KEY: "openai-test",
-	DEEPGRAM_API_KEY: "deepgram-test",
-	ASSEMBLYAI_API_KEY: "assemblyai-test",
-};
+import {
+	assertKnownTags,
+	loadConfig,
+	requireSecrets,
+} from "../../src/core/config";
 
 const tags = {
 	tags: [
@@ -23,73 +19,19 @@ const tags = {
 
 const providers = { default: "deepgram", fallback: "assemblyai" };
 
-function withoutKey(
-	source: Record<string, string>,
-	key: string,
-): Record<string, string> {
-	return Object.fromEntries(
-		Object.entries(source).filter(([name]) => name !== key),
-	);
-}
-
 describe("loadConfig", () => {
-	it("loads the committed config files with every required secret", () => {
-		const config = loadConfig(env);
-		expect(config.providers.default).toEqual({
-			id: "deepgram",
-			apiKey: "deepgram-test",
-		});
-		expect(config.providers.fallback).toEqual({
-			id: "assemblyai",
-			apiKey: "assemblyai-test",
-		});
-		expect(config.secrets).toEqual({
-			TELEGRAM_BOT_TOKEN: "telegram-test",
-			NOTION_TOKEN: "notion-test",
-			OPENAI_API_KEY: "openai-test",
+	it("loads the committed config files", () => {
+		const config = loadConfig();
+		expect(config.providers).toEqual({
+			default: "deepgram",
+			fallback: "assemblyai",
 		});
 		expect(config.tags).toHaveLength(3);
 	});
 
-	it("names the missing secret", () => {
-		expect(() => loadConfig(withoutKey(env, "NOTION_TOKEN"))).toThrow(
-			"Missing secret: NOTION_TOKEN",
-		);
-	});
-
-	it("treats a blank secret as missing", () => {
-		expect(() => loadConfig({ ...env, OPENAI_API_KEY: "  " })).toThrow(
-			"Missing secret: OPENAI_API_KEY",
-		);
-	});
-
-	it("lists every missing secret at once", () => {
-		expect(() => loadConfig({})).toThrow(
-			"Missing secret: TELEGRAM_BOT_TOKEN; Missing secret: NOTION_TOKEN; Missing secret: OPENAI_API_KEY; Missing secret: DEEPGRAM_API_KEY; Missing secret: ASSEMBLYAI_API_KEY",
-		);
-	});
-
-	it("requires the secret of the configured transcription providers only", () => {
-		const files = {
-			tags,
-			providers: { default: "elevenlabs", fallback: "openai" },
-		};
-		expect(() => loadConfig(env, files)).toThrow(
-			"Missing secret: ELEVENLABS_API_KEY",
-		);
-		const config = loadConfig(
-			{ ...env, ELEVENLABS_API_KEY: "elevenlabs-test" },
-			files,
-		);
-		expect(config.providers.fallback).toEqual({
-			id: "openai",
-			apiKey: "openai-test",
-		});
-	});
-
 	it("rejects a fallback provider equal to the default", () => {
 		expect(() =>
-			loadConfig(env, {
+			loadConfig({
 				tags,
 				providers: { default: "deepgram", fallback: "deepgram" },
 			}),
@@ -100,7 +42,7 @@ describe("loadConfig", () => {
 
 	it("rejects an unknown provider", () => {
 		expect(() =>
-			loadConfig(env, {
+			loadConfig({
 				tags,
 				providers: { default: "whisper", fallback: "assemblyai" },
 			}),
@@ -111,7 +53,7 @@ describe("loadConfig", () => {
 		const invalid = {
 			tags: [{ id: "budget", label: "Budget", category: "finance" }],
 		};
-		expect(() => loadConfig(env, { tags: invalid, providers })).toThrow(
+		expect(() => loadConfig({ tags: invalid, providers })).toThrow(
 			"Invalid config/tags.json: tags.0.category:",
 		);
 	});
@@ -122,13 +64,13 @@ describe("loadConfig", () => {
 				{ id: "Progetto Alfa", label: "Progetto Alfa", category: "project" },
 			],
 		};
-		expect(() => loadConfig(env, { tags: invalid, providers })).toThrow(
+		expect(() => loadConfig({ tags: invalid, providers })).toThrow(
 			"Invalid config/tags.json: tags.0.id:",
 		);
 	});
 
 	it("rejects a tags file that is not an object", () => {
-		expect(() => loadConfig(env, { tags: [], providers })).toThrow(
+		expect(() => loadConfig({ tags: [], providers })).toThrow(
 			"Invalid config/tags.json: (root):",
 		);
 	});
@@ -140,14 +82,53 @@ describe("loadConfig", () => {
 				{ id: "progetto_alfa", label: "Altro", category: "topic" },
 			],
 		};
-		expect(() => loadConfig(env, { tags: invalid, providers })).toThrow(
+		expect(() => loadConfig({ tags: invalid, providers })).toThrow(
 			"Invalid config/tags.json: tags.2.id: duplicate tag id progetto_alfa",
 		);
 	});
 });
 
+describe("requireSecrets", () => {
+	const env = {
+		NOTION_TOKEN: " notion-test\n",
+		OPENAI_API_KEY: "openai-test",
+		UNRELATED: "value",
+	};
+
+	it("returns only the requested secrets, trimmed", () => {
+		expect(requireSecrets(env, ["NOTION_TOKEN", "OPENAI_API_KEY"])).toEqual({
+			NOTION_TOKEN: "notion-test",
+			OPENAI_API_KEY: "openai-test",
+		});
+	});
+
+	it("names the missing secret", () => {
+		expect(() => requireSecrets(env, ["TELEGRAM_BOT_TOKEN"])).toThrow(
+			"Missing secret: TELEGRAM_BOT_TOKEN",
+		);
+	});
+
+	it("treats a blank secret as missing", () => {
+		expect(() =>
+			requireSecrets({ NOTION_TOKEN: "  " }, ["NOTION_TOKEN"]),
+		).toThrow("Missing secret: NOTION_TOKEN");
+	});
+
+	it("lists every missing secret at once", () => {
+		expect(() =>
+			requireSecrets(env, [
+				"DEEPGRAM_API_KEY",
+				"NOTION_TOKEN",
+				"TELEGRAM_BOT_TOKEN",
+			]),
+		).toThrow(
+			"Missing secret: DEEPGRAM_API_KEY; Missing secret: TELEGRAM_BOT_TOKEN",
+		);
+	});
+});
+
 describe("assertKnownTags", () => {
-	const config = loadConfig(env, { tags, providers });
+	const config = loadConfig({ tags, providers });
 
 	it("accepts tags from the vocabulary", () => {
 		expect(() =>

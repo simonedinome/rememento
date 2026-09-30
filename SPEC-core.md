@@ -26,7 +26,7 @@ Deploy:      npx wrangler deploy
 
 ## Project Structure
 ```
-src/core/config.ts      → caricamento + validazione Zod di env e config/*.json
+src/core/config.ts      → validazione Zod di config/*.json + requireSecrets (controllo dei secret dichiarati da ogni modulo)
 src/core/types.ts       → tipi di dominio condivisi
 src/core/r2.ts          → convenzioni chiavi R2 + helper put/get JSON
 src/core/ids.ts         → generazione UUID
@@ -103,7 +103,7 @@ Funzioni piccole e pure dove possibile, niente classi senza stato, nomi in ingle
 ## Success Criteria
 1. `npm test` e `npx tsc --noEmit` passano nell'ambiente Claude Code cloud.
 2. `0001_init.sql` crea tutte le tabelle sopra, sia in locale sia su remoto.
-3. La config rifiuta all'avvio un tag non presente in `config/tags.json` e un secret mancante, con messaggio esplicito.
+3. La config rifiuta all'avvio un tag o un provider non valido, con messaggio esplicito. `core` non elenca i secret: ogni modulo dichiara i propri e li verifica con `requireSecrets` quando li usa, che rifiuta un secret mancante con il suo nome.
 4. L'indice Vectorize esiste con 1536 dimensioni.
 5. Gli altri moduli possono importare `TranscriptionResult` e gli helper R2 senza toccare `core`.
 

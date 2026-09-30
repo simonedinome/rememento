@@ -1,6 +1,13 @@
 // Contract shared with the other modules (SPEC-core.md). Changing it breaks their code.
 
-export type ProviderId = "deepgram" | "assemblyai" | "elevenlabs" | "openai";
+export const PROVIDER_IDS = [
+	"deepgram",
+	"assemblyai",
+	"elevenlabs",
+	"openai",
+] as const;
+
+export type ProviderId = (typeof PROVIDER_IDS)[number];
 
 export type Segment = {
 	speakerLabel: string;
