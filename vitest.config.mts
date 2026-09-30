@@ -9,5 +9,10 @@ export default defineConfig({
 	],
 	test: {
 		include: ["tests/**/*.test.ts"],
+		coverage: {
+			provider: "istanbul",
+			include: ["src/**/*.ts"],
+			reporter: ["text-summary", "lcovonly"],
+		},
 	},
 });

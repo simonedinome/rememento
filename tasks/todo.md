@@ -49,13 +49,13 @@ Leggi `CLAUDE.md` prima di iniziare. Un task alla volta, in ordine. Fermati a og
 **Description:** Aggiungere a `package.json` gli script `check:fast`, `check:task` e `check:full` come da `CONSTRAINTS.md`. Aggiungere uno script `scripts/floor-guard.sh` che controlla sul diff le cinque regole del floor. Configurare dependency-cruiser con le frecce di `CAPABILITY-MAP.md`.
 
 **Acceptance criteria:**
-- [ ] `check:fast` esegue tsc, Biome e gitleaks; `check:task` aggiunge Vitest con copertura, osv-scanner, depcruise e floor-guard
-- [ ] Le regole di dependency-cruiser vietano ogni import che vada contro le frecce della capability map (es. `src/core` non importa da nessun altro modulo)
-- [ ] `floor-guard.sh` esce con codice 1 se il diff aggiunge `@ts-ignore`, `.skip`, `.only`, `catch {}` vuoto o `Not implemented`
+- [x] `check:fast` esegue tsc, Biome e gitleaks; `check:task` aggiunge Vitest con copertura, osv-scanner, depcruise e floor-guard
+- [x] Le regole di dependency-cruiser vietano ogni import che vada contro le frecce della capability map (es. `src/core` non importa da nessun altro modulo)
+- [x] `floor-guard.sh` esce con codice 1 se il diff aggiunge `@ts-ignore`, `.skip`, `.only`, `catch {}` vuoto o `Not implemented`
 
 **Verification:**
-- [ ] `npm run check:task` passa in meno di 90 secondi
-- [ ] Manual check: un file di prova con `@ts-ignore` e un import vietato fa fallire il controllo, poi viene rimosso
+- [x] `npm run check:task` passa in meno di 90 secondi
+- [x] Manual check: un file di prova con `@ts-ignore` e un import vietato fa fallire il controllo, poi viene rimosso
 
 **Dependencies:** Task 1
 

@@ -34,7 +34,7 @@ Non sono task dell'agente: vanno completati prima del Task 1.
 - [ ] Revisione con Simone
 
 ### Phase 2: Quality gates e config
-- [ ] Task 3: Script di controllo, guardia del floor e regole di dependency-cruiser
+- [x] Task 3: Script di controllo, guardia del floor e regole di dependency-cruiser
 - [ ] Task 4: Caricamento e validazione della configurazione
 - [ ] Task 5: Tipi condivisi e generazione degli id
 
