@@ -109,13 +109,13 @@ Leggi `CLAUDE.md` prima di iniziare. Un task alla volta, in ordine. Fermati a og
 **Description:** Scrivere `migrations/0001_init.sql` con le otto tabelle di `SPEC-core.md`, con chiavi esterne e indici su `meeting_id` e `recorded_at`. Applicarla prima in locale, poi sul remoto.
 
 **Acceptance criteria:**
-- [ ] Tutte le tabelle e i campi della spec esistono
-- [ ] Il vincolo "almeno uno tra `meeting_id` e `note_id`" su `items` è garantito da un `CHECK`
-- [ ] La migrazione è applicata su remoto, sempre dopo quella locale
+- [x] Tutte le tabelle e i campi della spec esistono
+- [x] Il vincolo "almeno uno tra `meeting_id` e `note_id`" su `items` è garantito da un `CHECK`
+- [x] La migrazione è applicata su remoto, sempre dopo quella locale
 
 **Verification:**
-- [ ] Un test nel pool Workers applica la migrazione su un D1 vuoto, inserisce una riunione con un segmento e un elemento, e verifica che un elemento senza riunione né nota venga rifiutato
-- [ ] `npx wrangler d1 migrations list meetings-db --remote` mostra `0001` applicata
+- [x] Un test nel pool Workers applica la migrazione su un D1 vuoto, inserisce una riunione con un segmento e un elemento, e verifica che un elemento senza riunione né nota venga rifiutato
+- [x] `npx wrangler d1 migrations list meetings-db --remote` mostra `0001` applicata
 
 **Dependencies:** Task 2, Task 5
 
