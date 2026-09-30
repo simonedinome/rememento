@@ -36,11 +36,11 @@ Non sono task dell'agente: vanno completati prima del Task 1.
 ### Phase 2: Quality gates e config
 - [x] Task 3: Script di controllo, guardia del floor e regole di dependency-cruiser
 - [x] Task 4: Caricamento e validazione della configurazione
-- [ ] Task 5: Tipi condivisi e generazione degli id
+- [x] Task 5: Tipi condivisi e generazione degli id
 
 ### Checkpoint B
-- [ ] `npm run check:task` passa in meno di 90 secondi
-- [ ] Una violazione volontaria (tag sconosciuto, `@ts-ignore`, import vietato) viene bloccata
+- [x] `npm run check:task` passa in meno di 90 secondi
+- [x] Una violazione volontaria (tag sconosciuto, `@ts-ignore`, import vietato) viene bloccata
 - [ ] Revisione con Simone
 
 ### Phase 3: Dati

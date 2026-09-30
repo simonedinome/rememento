@@ -1,21 +1,19 @@
 import { z } from "zod";
 import providersFile from "../../config/providers.json";
 import tagsFile from "../../config/tags.json";
+import type { ProviderId } from "./types";
 
-const providerIdSchema = z.enum([
-	"deepgram",
-	"assemblyai",
-	"elevenlabs",
-	"openai",
-]);
-export type ProviderId = z.infer<typeof providerIdSchema>;
-
+// `satisfies` rejects missing and extra keys, so the keys are exactly the ProviderId values.
 const PROVIDER_SECRETS = {
 	deepgram: "DEEPGRAM_API_KEY",
 	assemblyai: "ASSEMBLYAI_API_KEY",
 	elevenlabs: "ELEVENLABS_API_KEY",
 	openai: "OPENAI_API_KEY",
 } as const satisfies Record<ProviderId, string>;
+
+const providerIdSchema = z.enum(
+	Object.keys(PROVIDER_SECRETS) as [ProviderId, ...ProviderId[]],
+);
 
 // OpenAI is always required because embeddings use text-embedding-3-small.
 const BASE_SECRETS = [

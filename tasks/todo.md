@@ -87,12 +87,12 @@ Leggi `CLAUDE.md` prima di iniziare. Un task alla volta, in ordine. Fermati a og
 **Description:** Definire in `src/core/types.ts` i tipi della spec (`Segment`, `TranscriptionResult`, `ProviderId`) e i tipi delle righe D1. Implementare in `src/core/ids.ts` la generazione di UUID v4.
 
 **Acceptance criteria:**
-- [ ] I tipi corrispondono esattamente al contratto in `SPEC-core.md`
-- [ ] `newId()` restituisce UUID v4 validi e unici su 1000 chiamate
+- [x] I tipi corrispondono esattamente al contratto in `SPEC-core.md`
+- [x] `newId()` restituisce UUID v4 validi e unici su 1000 chiamate
 
 **Verification:**
-- [ ] Test unitario su `newId()`
-- [ ] `npm run check:task` passa
+- [x] Test unitario su `newId()`
+- [x] `npm run check:task` passa
 
 **Dependencies:** Task 3
 
@@ -101,7 +101,7 @@ Leggi `CLAUDE.md` prima di iniziare. Un task alla volta, in ordine. Fermati a og
 **Estimated scope:** XS (circa 15 minuti)
 
 ## Checkpoint B
-- [ ] Una violazione volontaria viene bloccata dai controlli
+- [x] Una violazione volontaria viene bloccata dai controlli
 - [ ] Revisione con Simone
 
 ## Task 6: Migrazione D1 iniziale
