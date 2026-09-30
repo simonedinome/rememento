@@ -33,10 +33,14 @@ export type MeetingStatus =
 	| "done"
 	| "failed";
 
+// Where recorded_at comes from: audio metadata, the file name, the file modification time or manual input.
+export type RecordedAtSource = "metadata" | "filename" | "mtime" | "manual";
+
 export type MeetingRow = {
 	id: string;
 	title: string;
 	recorded_at: string;
+	recorded_at_source: RecordedAtSource;
 	duration_s: number | null;
 	language: string | null;
 	audio_key: string;

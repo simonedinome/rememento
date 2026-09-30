@@ -42,7 +42,7 @@ wrangler.toml           → binding: DB (D1), BUCKET (R2), VECTORS (Vectorize)
 
 | Tabella | Campi principali | Note |
 |---|---|---|
-| meetings | id, title, recorded_at, duration_s, language, audio_key, provider, model, status, notion_page_id, created_at | status: uploaded, transcribing, processing, done, failed |
+| meetings | id, title, recorded_at, recorded_at_source, duration_s, language, audio_key, provider, model, status, notion_page_id, created_at | status: uploaded, transcribing, processing, done, failed; recorded_at_source (NOT NULL): metadata, filename, mtime, manual |
 | speakers | id, meeting_id, label, name, verified, confidence | label = etichetta del provider (A, 0...); verified 0/1 |
 | segments | id, meeting_id, speaker_id, seq, start_ms, end_ms, text | ordine per seq |
 | items | id, meeting_id, note_id, type, text, created_at | type: decision, action_item, insight, summary; meeting_id e note_id nullable, almeno uno valorizzato |
