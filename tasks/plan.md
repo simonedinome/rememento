@@ -25,7 +25,7 @@ Non sono task dell'agente: vanno completati prima del Task 1.
 ## Task List
 
 ### Phase 1: Foundation
-- [ ] Task 1: Scaffold del Worker e tooling di base
+- [x] Task 1: Scaffold del Worker e tooling di base
 - [ ] Task 2: Provisioning delle risorse Cloudflare e smoke deploy
 
 ### Checkpoint A

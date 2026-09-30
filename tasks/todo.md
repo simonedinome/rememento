@@ -7,13 +7,13 @@ Leggi `CLAUDE.md` prima di iniziare. Un task alla volta, in ordine. Fermati a og
 **Description:** Creare il progetto Worker TypeScript con `create-cloudflare`, configurare TypeScript strict, Biome, Vitest con `@cloudflare/vitest-pool-workers` e un endpoint `GET /health` che risponde `ok`.
 
 **Acceptance criteria:**
-- [ ] `tsconfig.json` con `strict: true`; versioni in `package.json` senza `^` né `~`
-- [ ] `.gitignore` include `.dev.vars`, `node_modules`, `.wrangler`, `coverage`, `*.m4a`, `*.mp3`, `*.wav`
-- [ ] Un test verifica che `GET /health` risponda 200 con `ok`
+- [x] `tsconfig.json` con `strict: true`; versioni in `package.json` senza `^` né `~`
+- [x] `.gitignore` include `.dev.vars`, `node_modules`, `.wrangler`, `coverage`, `*.m4a`, `*.mp3`, `*.wav`
+- [x] Un test verifica che `GET /health` risponda 200 con `ok`
 
 **Verification:**
-- [ ] `npm test` passa
-- [ ] `npx tsc --noEmit` e `npx biome check .` senza errori
+- [x] `npm test` passa
+- [x] `npx tsc --noEmit` e `npx biome check .` senza errori
 
 **Dependencies:** Prerequisiti manuali di `tasks/plan.md`
 
