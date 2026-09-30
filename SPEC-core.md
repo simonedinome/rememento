@@ -9,7 +9,7 @@ Utente: solo Simone (uso personale). Consumatori: tutti gli altri moduli della c
 1. Cloudflare Workers, TypeScript strict.
 2. D1 (SQLite) per i metadati, R2 per audio e JSON grezzi, Vectorize per gli embedding (l'indice viene creato qui, usato da processing e retrieval).
 3. Zod per validare la configurazione.
-4. Vitest + `@cloudflare/vitest-pool-workers`. Biome per lint e format.
+4. Vitest + `@cloudflare/vitest-plugin`. Biome per lint e format.
 5. Versioni: ultima stabile al momento dello scaffold, fissate in `package.json` (nessun `^`).
 
 ## Commands

@@ -31,7 +31,7 @@ Entro un mese: arretrato (~10 registrazioni da 30-60 min) importato, e almeno un
 1. Repo GitHub privato, TypeScript. Worker in `src/`, script una tantum in `scripts/`.
 2. Sviluppo con Claude Code cloud in un ambiente personalizzato: allowlist con API Cloudflare, Telegram, Notion, OpenAI, Deepgram, AssemblyAI, ElevenLabs, endpoint R2, più i registri pacchetti di default. Deploy con `CLOUDFLARE_API_TOKEN` (niente `wrangler login`).
 3. Nessun audio nel repo. Campioni di benchmark su R2.
-4. Test con Vitest nel runtime Workers (`@cloudflare/vitest-pool-workers`).
+4. Test con Vitest nel runtime Workers (`@cloudflare/vitest-plugin`).
 5. Vocabolario tag in `config/tags.json`, versionato.
 
 ## Fuori scope
