@@ -1,13 +1,21 @@
-// Arrows of CAPABILITY-MAP.md: each module may import only from itself and the modules listed here.
-const allowedImports = {
+// Arrows of CAPABILITY-MAP.md between modules other than core.
+const arrows = {
 	core: [],
-	transcription: ["core"],
-	processing: ["core", "transcription"],
-	"notion-sync": ["core"],
+	transcription: [],
+	processing: ["transcription"],
+	"notion-sync": [],
 	ingest: ["transcription", "processing", "notion-sync"],
-	retrieval: ["core"],
+	retrieval: [],
 	"telegram-bot": ["retrieval", "ingest"],
 };
+
+// Every module may import from core; core imports from no module (CAPABILITY-MAP.md, rule 4).
+const allowedImports = Object.fromEntries(
+	Object.entries(arrows).map(([module, targets]) => [
+		module,
+		module === "core" ? [] : ["core", ...targets],
+	]),
+);
 
 const capabilityMapRules = Object.entries(allowedImports).map(
 	([module, dependencies]) => ({

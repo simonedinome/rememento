@@ -13,9 +13,9 @@ Entro un mese: arretrato (~10 registrazioni da 30-60 min) importato, e almeno un
 | transcription | Adapter provider (Deepgram, AssemblyAI, ElevenLabs Scribe, OpenAI), output normalizzato, fallback, script benchmark | core |
 | processing | Proposta nomi speaker, riassunto, elementi atomici con tag e riferimenti ai segmenti, embedding | core, transcription |
 | notion-sync | Scrittura database Notion (Riunioni, Elementi, Note manuali), lettura note manuali | core |
-| ingest | Pipeline audio → R2 → trascrizione → elaborazione → salvataggio; script locale per l'arretrato | transcription, processing, notion-sync |
+| ingest | Pipeline audio → R2 → trascrizione → elaborazione → salvataggio; script locale per l'arretrato | core, transcription, processing, notion-sync |
 | retrieval | Domanda → ricerca vettoriale su elementi, poi segmenti → risposta citata | core |
-| telegram-bot | Domande, timeline con hashtag, conferma speaker, cattura nuovi audio | retrieval, ingest |
+| telegram-bot | Domande, timeline con hashtag, conferma speaker, cattura nuovi audio | core, retrieval, ingest |
 
 ## Build order
 1. core
@@ -41,3 +41,4 @@ Note manoscritte Boox, integrazione Agentforce/BWH Buddy, second-brain come cont
 1. Ogni modulo ha la sua spec: `SPEC-<module-id>.md`. Nessun codice senza spec approvata.
 2. I module id non si rinominano.
 3. Le dipendenze vanno in una sola direzione. Se due moduli hanno bisogno l'uno dell'altro, sono un modulo solo.
+4. Tutti i moduli possono importare da `core`; `core` non importa da nessun modulo. Le regole di `.dependency-cruiser.cjs` applicano la tabella sopra.
