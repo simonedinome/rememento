@@ -26,11 +26,11 @@ Non sono task dell'agente: vanno completati prima del Task 1.
 
 ### Phase 1: Foundation
 - [x] Task 1: Scaffold del Worker e tooling di base
-- [ ] Task 2: Provisioning delle risorse Cloudflare e smoke deploy
+- [x] Task 2: Provisioning delle risorse Cloudflare e smoke deploy
 
 ### Checkpoint A
-- [ ] `npx wrangler deploy` riesce dall'ambiente cloud
-- [ ] D1, R2 e Vectorize esistono e sono collegati nel `wrangler.toml`
+- [x] `npx wrangler deploy` riesce dall'ambiente cloud
+- [x] D1, R2 e Vectorize esistono e sono collegati nel `wrangler.toml`
 - [ ] Revisione con Simone
 
 ### Phase 2: Quality gates e config

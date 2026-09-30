@@ -26,12 +26,12 @@ Leggi `CLAUDE.md` prima di iniziare. Un task alla volta, in ordine. Fermati a og
 **Description:** Creare database D1 `meetings-db`, bucket R2 `meetings-audio` e indice Vectorize `meetings-vectors` (1536 dimensioni, metrica cosine). Collegarli nel `wrangler.toml` come `DB`, `BUCKET` e `VECTORS` e fare il primo deploy.
 
 **Acceptance criteria:**
-- [ ] Le tre risorse esistono e compaiono in `npx wrangler d1 list`, `npx wrangler r2 bucket list` e `npx wrangler vectorize list`
-- [ ] `npx wrangler deploy` riesce e `GET /health` sull'URL `workers.dev` risponde `ok`
-- [ ] I comandi usati sono documentati in `docs/provisioning.md`, così si possono rieseguire
+- [x] Le tre risorse esistono e compaiono in `npx wrangler d1 list`, `npx wrangler r2 bucket list` e `npx wrangler vectorize list`
+- [x] `npx wrangler deploy` riesce e `GET /health` sull'URL `workers.dev` risponde `ok`
+- [x] I comandi usati sono documentati in `docs/provisioning.md`, così si possono rieseguire
 
 **Verification:**
-- [ ] `curl` sull'URL deployato restituisce `ok`
+- [x] `curl` sull'URL deployato restituisce `ok`
 - [ ] Manual check: le risorse sono visibili nella dashboard Cloudflare
 
 **Dependencies:** Task 1
@@ -41,7 +41,7 @@ Leggi `CLAUDE.md` prima di iniziare. Un task alla volta, in ordine. Fermati a og
 **Estimated scope:** S (circa 20 minuti)
 
 ## Checkpoint A
-- [ ] Deploy riuscito dall'ambiente cloud
+- [x] Deploy riuscito dall'ambiente cloud
 - [ ] Revisione con Simone
 
 ## Task 3: Script di controllo, guardia del floor e regole di dependency-cruiser
