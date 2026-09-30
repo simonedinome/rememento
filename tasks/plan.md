@@ -56,7 +56,7 @@ Non sono task dell'agente: vanno completati prima del Task 1.
 
 | Rischio | Impatto | Mitigazione |
 |---|---|---|
-| La sessione parte nell'ambiente cloud Default invece di quello personalizzato, e le API vengono bloccate senza avviso | Alto | All'inizio di ogni sessione verificare `echo $CLAUDE_CODE_ENVIRONMENT_NAME` e una chiamata a `api.cloudflare.com` |
+| La sessione parte nell'ambiente cloud Default invece di quello personalizzato, e le API vengono bloccate senza avviso | Alto | All'inizio di ogni sessione eseguire `scripts/check-network.sh`, che prova tutti i domini della allowlist |
 | Permessi del token Cloudflare insufficienti | Medio | Il Task 2 verifica ogni risorsa singolarmente; l'errore indica quale permesso manca |
 | Incompatibilità di versione tra Vitest e il pool Workers | Medio | Versioni generate da `create-cloudflare` e fissate senza `^` |
 | Lista dei tag non ancora definita | Basso per `core` | `tags.json` con uno schema e 3 tag segnaposto; lista reale prima della spec di `processing` |

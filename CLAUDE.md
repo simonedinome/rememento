@@ -1,7 +1,7 @@
 # CLAUDE.md
 
 ## All'inizio di ogni sessione
-1. Verifica l'ambiente: `echo $CLAUDE_CODE_ENVIRONMENT_NAME` deve restituire il nome dell'ambiente personalizzato. Se è vuoto o `Default`, fermati e avvisa: le API esterne saranno bloccate.
+1. Verifica la rete: `bash scripts/check-network.sh` deve uscire con codice 0. Se segnala un dominio `BLOCKED` o una variabile mancante, fermati e avvisa: il dominio va aggiunto alla allowlist dell'ambiente cloud, la variabile alle sue impostazioni.
 2. Leggi `CONSTRAINTS.md` prima di scrivere codice. Non indebolirlo per far passare una modifica.
 3. Leggi `CAPABILITY-MAP.md` e la spec del modulo su cui lavori (`SPEC-<module-id>.md`).
 4. Prendi il primo task non completato in `tasks/todo.md`. Un task alla volta, fermati a ogni checkpoint.
