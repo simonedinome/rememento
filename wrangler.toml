@@ -1,0 +1,19 @@
+name = "rememento"
+main = "src/index.ts"
+compatibility_date = "2026-09-30"
+
+[observability]
+enabled = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "meetings-db"
+database_id = "80aea149-b007-4936-a171-fb171f277921"
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "meetings-audio"
+
+[[vectorize]]
+binding = "VECTORS"
+index_name = "meetings-vectors"

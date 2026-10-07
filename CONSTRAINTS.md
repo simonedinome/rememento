@@ -18,7 +18,7 @@ Questo file è la fonte canonica della soglia di qualità. Gli script in `packag
 |---|---|---|---|---|
 | Types | Zero errori | `npx tsc --noEmit` | ogni modifica | TypeScript strict è la prima difesa contro i contratti tra moduli rotti |
 | Lint | Zero errori | `npx biome check .` | ogni modifica | Stile unico tra sessioni diverse dell'agente |
-| Secrets | Zero finding | `gitleaks detect --redact --no-banner` | ogni modifica | 6-7 token API gestiti da un agente non sorvegliato |
+| Secrets | Zero finding | `scripts/scan-secrets.sh`: `gitleaks detect` sulla storia git e `gitleaks dir` sui file di `src`, `tests`, `config` e `scripts`, anche non committati; i commenti `gitleaks:allow` non valgono (`--ignore-gitleaks-allow`) | ogni modifica | 6-7 token API gestiti da un agente non sorvegliato: un secret va fermato prima del commit, non dopo |
 | Copertura | Righe modificate ≥ 80% | `npx vitest run --coverage` + `git diff` | fine task | Abbastanza alta da forzare un test, abbastanza bassa da permettere righe di config |
 | Dipendenze | Nessuna vulnerabilità high o critical | `osv-scanner scan source -r .` | fine task | Sotto high è quasi tutto rumore |
 | Architettura | Zero violazioni della capability map | `npx depcruise --validate .dependency-cruiser.cjs src` | fine task | Le frecce di `CAPABILITY-MAP.md` devono restare in una sola direzione |
@@ -36,7 +36,7 @@ Queste tre scelte non sono state discusse esplicitamente; sono i default della s
 
 | Metrica | Oggi | Direzione |
 |---|---|---|
-| Copertura del progetto | da misurare alla fine del modulo `core` | non deve scendere |
+| Copertura del progetto | Fine modulo `core` (2026-09-30, istanbul su `src/`): righe 100% (60/60), branch 100% (23/23), funzioni 100% (18/18) | non deve scendere |
 
 ## Exceptions
 

@@ -25,38 +25,38 @@ Non sono task dell'agente: vanno completati prima del Task 1.
 ## Task List
 
 ### Phase 1: Foundation
-- [ ] Task 1: Scaffold del Worker e tooling di base
-- [ ] Task 2: Provisioning delle risorse Cloudflare e smoke deploy
+- [x] Task 1: Scaffold del Worker e tooling di base
+- [x] Task 2: Provisioning delle risorse Cloudflare e smoke deploy
 
 ### Checkpoint A
-- [ ] `npx wrangler deploy` riesce dall'ambiente cloud
-- [ ] D1, R2 e Vectorize esistono e sono collegati nel `wrangler.toml`
+- [x] `npx wrangler deploy` riesce dall'ambiente cloud
+- [x] D1, R2 e Vectorize esistono e sono collegati nel `wrangler.toml`
 - [ ] Revisione con Simone
 
 ### Phase 2: Quality gates e config
-- [ ] Task 3: Script di controllo, guardia del floor e regole di dependency-cruiser
-- [ ] Task 4: Caricamento e validazione della configurazione
-- [ ] Task 5: Tipi condivisi e generazione degli id
+- [x] Task 3: Script di controllo, guardia del floor e regole di dependency-cruiser
+- [x] Task 4: Caricamento e validazione della configurazione
+- [x] Task 5: Tipi condivisi e generazione degli id
 
 ### Checkpoint B
-- [ ] `npm run check:task` passa in meno di 90 secondi
-- [ ] Una violazione volontaria (tag sconosciuto, `@ts-ignore`, import vietato) viene bloccata
+- [x] `npm run check:task` passa in meno di 90 secondi
+- [x] Una violazione volontaria (tag sconosciuto, `@ts-ignore`, import vietato) viene bloccata
 - [ ] Revisione con Simone
 
 ### Phase 3: Dati
-- [ ] Task 6: Migrazione D1 iniziale
-- [ ] Task 7: Convenzioni e helper R2
+- [x] Task 6: Migrazione D1 iniziale
+- [x] Task 7: Convenzioni e helper R2
 
 ### Checkpoint C: modulo core completo
-- [ ] Tutti i Success Criteria di `SPEC-core.md` soddisfatti
-- [ ] Copertura del progetto misurata e registrata in `CONSTRAINTS.md`
+- [x] Tutti i Success Criteria di `SPEC-core.md` soddisfatti
+- [x] Copertura del progetto misurata e registrata in `CONSTRAINTS.md`
 - [ ] Revisione con Simone prima di scrivere `SPEC-transcription.md`
 
 ## Risks and Mitigations
 
 | Rischio | Impatto | Mitigazione |
 |---|---|---|
-| La sessione parte nell'ambiente cloud Default invece di quello personalizzato, e le API vengono bloccate senza avviso | Alto | All'inizio di ogni sessione verificare `echo $CLAUDE_CODE_ENVIRONMENT_NAME` e una chiamata a `api.cloudflare.com` |
+| La sessione parte nell'ambiente cloud Default invece di quello personalizzato, e le API vengono bloccate senza avviso | Alto | All'inizio di ogni sessione eseguire `scripts/check-network.sh`, che prova tutti i domini della allowlist |
 | Permessi del token Cloudflare insufficienti | Medio | Il Task 2 verifica ogni risorsa singolarmente; l'errore indica quale permesso manca |
 | Incompatibilità di versione tra Vitest e il pool Workers | Medio | Versioni generate da `create-cloudflare` e fissate senza `^` |
 | Lista dei tag non ancora definita | Basso per `core` | `tags.json` con uno schema e 3 tag segnaposto; lista reale prima della spec di `processing` |
